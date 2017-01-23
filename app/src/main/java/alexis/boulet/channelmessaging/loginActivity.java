@@ -1,5 +1,6 @@
 package alexis.boulet.channelmessaging;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -7,16 +8,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 
 public class loginActivity extends AppCompatActivity implements View.OnClickListener, OnDownloadCompleteListener {
-    private TextView tvidentifiant;
-    private TextView tvmdp;
     private EditText etIdentifiant;
     private EditText etMdp;
     private Button btnValider;
-    private String result;
     private static final String PREFS_NAME = "MyPrefsFile";
 
 
@@ -24,8 +23,6 @@ public class loginActivity extends AppCompatActivity implements View.OnClickList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        tvidentifiant = (TextView) findViewById(R.id.tvidentifiant);
-        tvmdp = (TextView) findViewById(R.id.tvmdp);
         etIdentifiant = (EditText) findViewById(R.id.etIdentifiant);
         etMdp = (EditText) findViewById(R.id.etMdp);
         btnValider = (Button) findViewById(R.id.btnValider);
@@ -34,24 +31,40 @@ public class loginActivity extends AppCompatActivity implements View.OnClickList
 
     @Override
     public void onClick(View v) {
-        Downloader d = new Downloader();
+        Downloader d = new Downloader(etIdentifiant.getText().toString(),etMdp.getText().toString());
         d.addOnDownloadCompleteListener(this);
         d.execute();
-
     }
 
     @Override
     public void onDownloadComplete(String content) {
         //désérialisation de json
         Gson gson = new Gson();
-        Response response = gson.fromJson(result, Response.class);
+        Response response = gson.fromJson(content, Response.class);
+        if(response != null) {
+            //stockage dans les ShardePrefs
+            SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
+            SharedPreferences.Editor editor = settings.edit();
+            editor.putString("accessToken", response.getAccessToken());
+            // Commit the edits!
+            editor.commit();
+            Intent myIntent = new Intent(this.getApplicationContext(),ChannelListActivity.class);
+            startActivityForResult(myIntent,0);
+        } else {
+            Toast toast = Toast.makeText(this.getApplicationContext(), "il n'y a pas d'acces token", Toast.LENGTH_LONG);
+            toast.show();
+        }
 
-        //stockage dans les ShardePrefs
-        SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
-        SharedPreferences.Editor editor = settings.edit();
-        editor.putString("accessToken", response.getAccessToken());
+    }
 
-        // Commit the edits!
-        editor.commit();
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(requestCode == 0)
+        {
+            if(resultCode == RESULT_OK)
+            {
+                String acces = data.getStringExtra("etat");
+            }
+        }
     }
 }

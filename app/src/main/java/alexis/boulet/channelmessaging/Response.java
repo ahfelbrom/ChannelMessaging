@@ -4,19 +4,22 @@ package alexis.boulet.channelmessaging;
  * Created by bouleta on 20/01/2017.
  */
 public class Response {
-    private String res;
+    private String response;
     private String code;
-    private String accessToken;
+    private String accesstoken;
 
     public String getAccessToken() {
-        return accessToken;
+        return accesstoken;
     }
 
     public Response(String result, String code, String acces) {
-        this.res = result;
+        this.response = result;
         this.code = code;
-        this.accessToken = acces;
+        this.accesstoken = acces;
+    }
 
-
+    @Override
+    public String toString() {
+        return "res = " + response + " + code = " + code + " acces token = " + accesstoken;
     }
 }

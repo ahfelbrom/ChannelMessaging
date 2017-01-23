@@ -29,6 +29,11 @@ public class Downloader extends AsyncTask<Void, Void, String> implements OnDownl
         this.listeners.add(listener);
     }
 
+    public Downloader(String txtIdentifiant, String txtMdp) {
+        this.txtIdentifiant = txtIdentifiant;
+        this.txtMdp = txtMdp;
+    }
+
     @Override
     protected String doInBackground(Void... params) {
         String requestURL = "http://www.raphaelbischof.fr/messaging/?function=connect";
