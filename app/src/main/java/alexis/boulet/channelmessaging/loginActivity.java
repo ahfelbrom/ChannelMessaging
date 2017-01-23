@@ -31,7 +31,7 @@ public class loginActivity extends AppCompatActivity implements View.OnClickList
 
     @Override
     public void onClick(View v) {
-        Downloader d = new Downloader(etIdentifiant.getText().toString(),etMdp.getText().toString());
+        Downloader d = new Downloader(etIdentifiant.getText().toString(),etMdp.getText().toString(),"http://www.raphaelbischof.fr/messaging/?function=connect");
         d.addOnDownloadCompleteListener(this);
         d.execute();
     }
@@ -41,8 +41,8 @@ public class loginActivity extends AppCompatActivity implements View.OnClickList
         //désérialisation de json
         Gson gson = new Gson();
         Response response = gson.fromJson(content, Response.class);
-        if(response != null) {
-            //stockage dans les ShardePrefs
+        if(response.getAccessToken() != null) {
+            //stockage dans les SharedPrefs
             SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
             SharedPreferences.Editor editor = settings.edit();
             editor.putString("accessToken", response.getAccessToken());
@@ -51,7 +51,7 @@ public class loginActivity extends AppCompatActivity implements View.OnClickList
             Intent myIntent = new Intent(this.getApplicationContext(),ChannelListActivity.class);
             startActivityForResult(myIntent,0);
         } else {
-            Toast toast = Toast.makeText(this.getApplicationContext(), "il n'y a pas d'acces token", Toast.LENGTH_LONG);
+            Toast toast = Toast.makeText(this.getApplicationContext(), "informations de connexions erronées", Toast.LENGTH_LONG);
             toast.show();
         }
 

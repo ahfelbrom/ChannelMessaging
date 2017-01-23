@@ -23,31 +23,54 @@ import javax.net.ssl.HttpsURLConnection;
 public class Downloader extends AsyncTask<Void, Void, String> implements OnDownloadCompleteListener {
     private String txtIdentifiant;
     private String txtMdp;
+    private String url;
+    private String accesstoken;
     private ArrayList<OnDownloadCompleteListener> listeners = new ArrayList<>();
 
     public void addOnDownloadCompleteListener(OnDownloadCompleteListener listener) {
         this.listeners.add(listener);
     }
 
-    public Downloader(String txtIdentifiant, String txtMdp) {
+    //création des constructeurs
+    public Downloader(String txtIdentifiant, String txtMdp, String geturl, String accestoken) {
         this.txtIdentifiant = txtIdentifiant;
         this.txtMdp = txtMdp;
+        this.url = geturl;
+        this.accesstoken = accestoken;
+    }
+    public Downloader(String geturl, String accestoken) {
+        this.txtIdentifiant = null;
+        this.txtMdp = null;
+        this.url = geturl;
+        this.accesstoken = accestoken;
     }
 
+    public Downloader(String txtIdentifiant, String txtMdp, String geturl) {
+        this.txtIdentifiant = txtIdentifiant;
+        this.txtMdp = txtMdp;
+        this.url = geturl;
+        this.accesstoken = null;
+    }
+
+    //traitement effectuée par la tâche
     @Override
     protected String doInBackground(Void... params) {
-        String requestURL = "http://www.raphaelbischof.fr/messaging/?function=connect";
+        String requestURL = this.url;
         //postDataParams =
         HashMap<String, String> postparam = new HashMap<>();
-        postparam.put("username", txtIdentifiant);
-        postparam.put("password", txtMdp);
+        if(txtIdentifiant != null && txtMdp != null)
+        {
+            postparam.put("username", txtIdentifiant);
+            postparam.put("password", txtMdp);
+        } else if(accesstoken != null) {
+            postparam.put("accesstoken", accesstoken);
+        }
         String result = performPostCall(requestURL, postparam);
         return result;
     }
 
     @Override
     protected void onPostExecute(String result) {
-        //Some stuff...
         for(OnDownloadCompleteListener listener:listeners)
         {
             listener.onDownloadComplete(result);

@@ -1,17 +1,28 @@
 package alexis.boulet.channelmessaging;
 
+import java.util.ArrayList;
+
 /**
  * Created by bouleta on 23/01/2017.
  */
 public class Channels {
+    private ArrayList<Channel> channels;
 
-    private int channelID;
-    private String name;
-    private int connectedusers;
+    public Channels(ArrayList<Channel> channels) {
+        this.channels = channels;
+    }
 
-    public Channels(int channelID, String name, int connectedusers) {
-        this.channelID = channelID;
-        this.name = name;
-        this.connectedusers = connectedusers;
+    public ArrayList<Channel> getChannels() {
+        return channels;
+    }
+
+    @Override
+    public String toString() {
+        String result = "";
+        for(Channel chan:channels)
+        {
+            result += chan.toString();
+        }
+        return result;
     }
 }

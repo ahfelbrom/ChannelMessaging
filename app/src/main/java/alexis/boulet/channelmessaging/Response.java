@@ -5,6 +5,11 @@ package alexis.boulet.channelmessaging;
  */
 public class Response {
     private String response;
+
+    public String getCode() {
+        return code;
+    }
+
     private String code;
     private String accesstoken;
 
