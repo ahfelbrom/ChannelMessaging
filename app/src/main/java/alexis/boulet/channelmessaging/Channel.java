@@ -7,6 +7,19 @@ public class Channel {
 
     private int channelID;
     private String name;
+
+    public int getConnectedusers() {
+        return connectedusers;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getChannelID() {
+        return channelID;
+    }
+
     private int connectedusers;
 
     public Channel(int channelID, String name, int connectedusers) {
