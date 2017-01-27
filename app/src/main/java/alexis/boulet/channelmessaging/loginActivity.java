@@ -48,6 +48,8 @@ public class loginActivity extends AppCompatActivity implements View.OnClickList
             editor.putString("accessToken", response.getAccessToken());
             // Commit the edits!
             editor.commit();
+            /*Toast toast = Toast.makeText(this.getApplicationContext(), response.toString(), Toast.LENGTH_LONG);
+            toast.show();*/
             Intent myIntent = new Intent(this.getApplicationContext(),ChannelListActivity.class);
             startActivityForResult(myIntent,0);
         } else {

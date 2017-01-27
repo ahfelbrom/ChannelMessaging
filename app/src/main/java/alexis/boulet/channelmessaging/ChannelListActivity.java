@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
@@ -13,16 +15,18 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
  * Created by bouleta on 23/01/2017.
  */
-public class ChannelListActivity extends Activity implements OnDownloadCompleteListener {
+public class ChannelListActivity extends Activity implements OnDownloadCompleteListener, AdapterView.OnItemClickListener {
 
     private TextView txt;
     private ListView lvChans;
-    private ArrayList<String> chanels = new ArrayList<String>();
+    private List<Channel> chanels = new ArrayList<Channel>();
     private static final String PREFS_NAME = "MyPrefsFile";
 
     @Override
@@ -38,16 +42,12 @@ public class ChannelListActivity extends Activity implements OnDownloadCompleteL
         d.execute();
         txt = (TextView) findViewById(R.id.tv1);
         lvChans = (ListView) findViewById(R.id.lvchans);
-        ArrayList<Map<String, String>> list = buildData();
-        String[] from = { " name", " connectedusers" }; 
-        int[] to = { R.id.textView, R.id.textView2 };
-        SimpleAdapter adapter = new SimpleAdapter(this, list, R.layout.layout_simple_chan, from, to);
-        lvChans.setAdapter(adapter);
+        //ArrayAdapter ça marche mais une seule donnée affichée ...
+        //lvChans.setAdapter(new ArrayAdapter(getApplicationContext(), R.layout.layout_simple_chan,R.id.textView, chanels));
+        //expérimental (recréer un arrayadapter) a faire quand t'auras le temps ou l'energie parce que ça te soule
+        lvChans.setAdapter(new MyshatedArrayAdapter(this.getApplicationContext(), chanels));
     }
 
-    private ArrayList<Map<String,String>> buildData() {
-        return null;
-    }
 
 
     private void activiteTerminee(boolean resultat, boolean etatHyperactif){
@@ -68,10 +68,14 @@ public class ChannelListActivity extends Activity implements OnDownloadCompleteL
     @Override
     public void onDownloadComplete(String content) {
         Gson gson = new Gson();
-        Channels chans = gson.fromJson(content, Channels.class);
-        for(Channel chan:chans.getChannels()) {
-            chanels.add(chan.getName());
-        }
-        txt.setText(chans.toString());
+        Channel chan = gson.fromJson(content, Channel.class);
+            chanels.add(chan);
+            txt.append(chan.toString() + "\n");
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Toast toast = Toast.makeText(this.getApplicationContext(), "t tro for", Toast.LENGTH_LONG);
+        toast.show();
     }
 }
