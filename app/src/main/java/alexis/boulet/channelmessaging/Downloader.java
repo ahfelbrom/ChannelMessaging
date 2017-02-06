@@ -25,6 +25,8 @@ public class Downloader extends AsyncTask<Void, Void, String> implements OnDownl
     private String txtMdp;
     private String url;
     private String accesstoken;
+    private int chanelId;
+    private String message;
     private ArrayList<OnDownloadCompleteListener> listeners = new ArrayList<>();
 
     public void addOnDownloadCompleteListener(OnDownloadCompleteListener listener) {
@@ -37,12 +39,16 @@ public class Downloader extends AsyncTask<Void, Void, String> implements OnDownl
         this.txtMdp = txtMdp;
         this.url = geturl;
         this.accesstoken = accestoken;
+        this.chanelId = 0;
+        this.message = null;
     }
     public Downloader(String geturl, String accestoken) {
         this.txtIdentifiant = null;
         this.txtMdp = null;
         this.url = geturl;
         this.accesstoken = accestoken;
+        this.chanelId = 0;
+        this.message = null;
     }
 
     public Downloader(String txtIdentifiant, String txtMdp, String geturl) {
@@ -50,6 +56,28 @@ public class Downloader extends AsyncTask<Void, Void, String> implements OnDownl
         this.txtMdp = txtMdp;
         this.url = geturl;
         this.accesstoken = null;
+        this.chanelId = 0;
+        this.message = null;
+    }
+
+    public Downloader(String geturl, String accessToken, int chanId)
+    {
+        this.chanelId = chanId;
+        this.url = geturl;
+        this.txtIdentifiant = null;
+        this.txtMdp = null;
+        this.accesstoken = accessToken;
+        this.message = null;
+    }
+
+    public Downloader(String geturl, String accesstoken, int chanId, String message)
+    {
+        this.chanelId = chanId;
+        this.url = geturl;
+        this.txtIdentifiant = null;
+        this.txtMdp = null;
+        this.accesstoken = accesstoken;
+        this.message = message;
     }
 
     //traitement effectuée par la tâche
@@ -64,6 +92,14 @@ public class Downloader extends AsyncTask<Void, Void, String> implements OnDownl
             postparam.put("password", txtMdp);
         } else if(accesstoken != null) {
             postparam.put("accesstoken", accesstoken);
+            if(chanelId != 0)
+            {
+                postparam.put("channelid", chanelId+"");
+            }
+            if (message != null)
+            {
+                postparam.put("message", message);
+            }
         }
         String result = performPostCall(requestURL, postparam);
         return result;

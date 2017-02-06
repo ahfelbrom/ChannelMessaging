@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -46,6 +47,7 @@ public class ChannelListActivity extends Activity implements OnDownloadCompleteL
         //lvChans.setAdapter(new ArrayAdapter(getApplicationContext(), R.layout.layout_simple_chan,R.id.textView, chanels));
         //expérimental (recréer un arrayadapter) a faire quand t'auras le temps ou l'energie parce que ça te soule
         lvChans.setAdapter(new MyshatedArrayAdapter(this.getApplicationContext(), chanels));
+        lvChans.setOnItemClickListener(this);
     }
 
 
@@ -68,14 +70,34 @@ public class ChannelListActivity extends Activity implements OnDownloadCompleteL
     @Override
     public void onDownloadComplete(String content) {
         Gson gson = new Gson();
-        Channel chan = gson.fromJson(content, Channel.class);
+        Channels chans = gson.fromJson(content,Channels.class);
+        for(Channel chan : chans.getChannels())
+        {
             chanels.add(chan);
-            txt.append(chan.toString() + "\n");
+        }
+        lvChans.setAdapter(new MyshatedArrayAdapter(this.getApplicationContext(), chanels));
     }
+
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Toast toast = Toast.makeText(this.getApplicationContext(), "t tro for", Toast.LENGTH_LONG);
-        toast.show();
+        Intent myIntent = new Intent(getApplicationContext(), ChannelActivity.class);
+        //Toast.makeText(getApplicationContext(), chanels.get(position).toString(),Toast.LENGTH_SHORT).show();
+        Channel chan = chanels.get(position);
+        //Toast.makeText(getApplicationContext(), chan.getChannelID()+"" ,Toast.LENGTH_SHORT).show();
+        myIntent.putExtra("chanID", chan.getChannelID());
+        startActivityForResult(myIntent, 1);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int
+            resultCode, Intent data) {
+        if (requestCode == 1)
+        {
+            if (resultCode==RESULT_OK)
+            {
+                String s = data.getStringExtra("etat");
+            }
+        }
     }
 }

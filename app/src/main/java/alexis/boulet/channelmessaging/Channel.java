@@ -7,6 +7,7 @@ public class Channel {
 
     private int channelID;
     private String name;
+    private int connectedusers;
 
     public int getConnectedusers() {
         return connectedusers;
@@ -20,7 +21,7 @@ public class Channel {
         return channelID;
     }
 
-    private int connectedusers;
+
 
     public Channel(int channelID, String name, int connectedusers) {
         this.channelID = channelID;
