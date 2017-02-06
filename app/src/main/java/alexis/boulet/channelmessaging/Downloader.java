@@ -28,6 +28,7 @@ public class Downloader extends AsyncTask<Void, Void, String> implements OnDownl
     private int chanelId;
     private String message;
     private ArrayList<OnDownloadCompleteListener> listeners = new ArrayList<>();
+    private int requestCode;
 
     public void addOnDownloadCompleteListener(OnDownloadCompleteListener listener) {
         this.listeners.add(listener);
@@ -95,10 +96,12 @@ public class Downloader extends AsyncTask<Void, Void, String> implements OnDownl
             if(chanelId != 0)
             {
                 postparam.put("channelid", chanelId+"");
+                this.requestCode = 1;
             }
             if (message != null)
             {
                 postparam.put("message", message);
+                this.requestCode = 2;
             }
         }
         String result = performPostCall(requestURL, postparam);
@@ -109,7 +112,7 @@ public class Downloader extends AsyncTask<Void, Void, String> implements OnDownl
     protected void onPostExecute(String result) {
         for(OnDownloadCompleteListener listener:listeners)
         {
-            listener.onDownloadComplete(result);
+            listener.onDownloadComplete(result, this.requestCode);
         }
     }
 
@@ -162,7 +165,7 @@ public class Downloader extends AsyncTask<Void, Void, String> implements OnDownl
     }
 
     @Override
-    public void onDownloadComplete(String content) {
+    public void onDownloadComplete(String content, int requestCode) {
 
     }
 

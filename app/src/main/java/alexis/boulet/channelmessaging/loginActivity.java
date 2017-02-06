@@ -37,7 +37,7 @@ public class loginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     @Override
-    public void onDownloadComplete(String content) {
+    public void onDownloadComplete(String content, int requestCode) {
         //désérialisation de json
         Gson gson = new Gson();
         Response response = gson.fromJson(content, Response.class);

@@ -28,12 +28,12 @@ public class MySecondArrayAdapter extends ArrayAdapter<Message> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View rowView = inflater.inflate(R.layout.layout_lane, parent, false);
+        View rowView = inflater.inflate(R.layout.layout_chan_mess, parent, false);
         TextView tvUserId = (TextView) rowView.findViewById(R.id.tvUserId);
         TextView tvMessage = (TextView) rowView.findViewById(R.id.tvMessage);
         Message mess = values.get(position);
         tvUserId.setText(""+mess.getUsername());
-        tvMessage.setText(" : " + mess.getMessage());
+        tvMessage.setText("" + mess.getMessage());
         return rowView;
     }
 }

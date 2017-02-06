@@ -68,7 +68,7 @@ public class ChannelListActivity extends Activity implements OnDownloadCompleteL
     }
 
     @Override
-    public void onDownloadComplete(String content) {
+    public void onDownloadComplete(String content, int requestCode) {
         Gson gson = new Gson();
         Channels chans = gson.fromJson(content,Channels.class);
         for(Channel chan : chans.getChannels())
