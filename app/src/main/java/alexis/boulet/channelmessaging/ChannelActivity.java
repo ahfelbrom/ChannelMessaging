@@ -51,8 +51,7 @@ public class ChannelActivity extends Activity implements OnDownloadCompleteListe
         handler.postDelayed(r, 1000);
     }
 
-    private void
-    activiteTerminee(boolean resultat, boolean etatHyperactif) {
+    private void activiteTerminee(boolean resultat, boolean etatHyperactif) {
         if (resultat) {
             Intent fermetureMonActivite = new Intent();
             if (etatHyperactif) {
@@ -88,8 +87,6 @@ public class ChannelActivity extends Activity implements OnDownloadCompleteListe
     @Override
     public void onClick(View v) {
         String message = etMessage.getText().toString();
-        //Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
-        // url = http://www.raphaelbischof.fr/messaging/?function=sendmessage
         SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
         String token = settings.getString("accessToken", "rien");
         int chanID = getIntent().getIntExtra("chanID", 0);
