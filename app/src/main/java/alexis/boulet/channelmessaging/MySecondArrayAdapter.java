@@ -21,7 +21,7 @@ import java.util.List;
 /**
  * Created by bouleta on 27/01/2017.
  */
-public class MySecondArrayAdapter extends ArrayAdapter<Message> {
+public class MySecondArrayAdapter extends ArrayAdapter<Message> implements OnDownloadCompleteListener {
     private final Context context;
     private final List<Message> values;
 
@@ -41,32 +41,15 @@ public class MySecondArrayAdapter extends ArrayAdapter<Message> {
         Message mess = values.get(position);
         tvUserId.setText("" + mess.getUsername());
         tvMessage.setText("" + mess.getMessage());
-        /*File picture = new File(Environment.getExternalStorageDirectory() + "/photos_profile/" + "profile_photo.txt");
-        if (!picture.exists()) {
-            File directoryProfile = new File(Environment.getExternalStorageDirectory() + "/photos_profile/");
-            directoryProfile.mkdirs();
-            File profilepicture = new File(directoryProfile, "profile_photo.txt");
-            FileOutputStream fileStream = null;
-            try {
-                fileStream = new FileOutputStream(profilepicture);
-                PrintWriter pw = new PrintWriter(fileStream);
-                pw.println(mess.getImageUrl()); // l'url a donner pour l'image
-                pw.flush();
-                pw.close();
-                fileStream.close();
-            } catch (FileNotFoundException e) {
-                //TODO HANDLER
-            } catch (IOException e) {
-                //TODO HANDLER
-            }
-        }
-        else {
-            BitmapFactory.decodeFile(picture.getPath());
-        }*/
-            //if exists :
-            //BitmapFactory.decodeFile()
-            //else :
-            // launch downloadFromUrl pui BitmapFactory.decodeFile()
+        downloadImageUrl diu = new downloadImageUrl(mess.getImageUrl().toString(),"image");
+        diu.addOnDownloadCompleteListener(this);
+        diu.execute();
+
         return rowView;
+    }
+
+    @Override
+    public void onDownloadComplete(String content, int requestCode) {
+
     }
 }

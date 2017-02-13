@@ -12,6 +12,7 @@ import java.io.InputStream;
 import java.io.PrintWriter;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.ArrayList;
 
 /**
  * Created by bouleta on 06/02/2017.
@@ -20,16 +21,18 @@ public class downloadImageUrl extends AsyncTask<Void, Void, Void> implements OnD
 
     private String imageUrl;
     private String filename;
+    private ArrayList<OnDownloadCompleteListener> listeners = new ArrayList<>();
+
+    public void addOnDownloadCompleteListener(OnDownloadCompleteListener listener) {
+        this.listeners.add(listener);
+    }
 
     public downloadImageUrl(String imageUrl, String filename) {
         this.imageUrl = imageUrl;
         this.filename = filename;
     }
 
-    public String getFilename() {
-
-        return filename;
-    }
+    public String getFilename() { return filename; }
 
     public String getImageUrl() {
         return imageUrl;
