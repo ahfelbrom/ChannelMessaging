@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -44,12 +45,11 @@ public class MySecondArrayAdapter extends ArrayAdapter<Message> implements OnDow
         downloadImageUrl diu = new downloadImageUrl(mess.getImageUrl().toString(),"image");
         diu.addOnDownloadCompleteListener(this);
         diu.execute();
-
         return rowView;
     }
 
     @Override
     public void onDownloadComplete(String content, int requestCode) {
-
+        Toast.makeText(this.getContext(), "image téléchargée", Toast.LENGTH_SHORT).show();
     }
 }
