@@ -1,32 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:weightSum="1">
 
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="listChannel"
-        android:id="@+id/title"
-        android:layout_gravity="center_horizontal"
-        android:background="#1d20b3"
-        android:textColor="#fcfcfc"
-        android:layout_weight="0.02"
-        android:textSize="24dp" />
-
-    <ListView
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/lvchans"
-        android:layout_gravity="center_horizontal"
-        android:layout_weight="0.02"
-        android:background="#12dffa" />
+        android:orientation="horizontal">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/tv1"
-        android:layout_gravity="center_horizontal"
-        android:visibility="invisible" />
+        <fragment
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:id="@+id/fragmentA_ID"
+            android:name="fragmentPackage.ChannelListFragment"
+            tools:layout="@layout/channel_list_fragment" />
+    </LinearLayout>
 </LinearLayout>

@@ -15,7 +15,7 @@
             android:layout_weight="3"
             android:id="@+id/fragmentB_ID"
             android:layout_gravity="center_vertical"
-            android:name="fragmentPackage.ChannelFragment"
+            android:name="fragmentPackage.MessageFragment"
             tools:layout="@layout/activity_channel" />
     </LinearLayout>
 

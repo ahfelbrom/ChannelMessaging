@@ -9,36 +9,12 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="alexis.boulet.channelmessaging.ChannelActivity">
 
-    <ListView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/lvMessageReceve"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginBottom="74dp" />
-
-    <LinearLayout
-        android:orientation="horizontal"
+    <fragment
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentBottom="true">
-
-        <EditText
-            android:layout_width="250dp"
-            android:layout_height="wrap_content"
-            android:id="@+id/etTextEnvoi"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="envoyer"
-            android:id="@+id/btnEnvoi" />
-    </LinearLayout>
+        android:id="@+id/fragmentB_ID"
+        android:layout_gravity="right"
+        android:name="fragmentPackage.MessageFragment"
+        tools:layout="@layout/channel_fragment" />
 
 </RelativeLayout>
