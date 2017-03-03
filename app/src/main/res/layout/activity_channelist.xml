@@ -3,7 +3,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:weightSum="1">
+    android:weightSum="1"
+    android:theme="@style/SplashTheme"
+    android:background="@color/gray">
+    <ImageView
+        android:layout_width="193dp"
+        android:layout_height="201dp"
+        android:src="@drawable/channel_messaging_logo"
+        android:layout_marginLeft="75dp"
+        android:tint="@color/black"
+        android:transitionName="logo"/>
 
     <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"

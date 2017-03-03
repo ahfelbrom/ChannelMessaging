@@ -6,8 +6,8 @@ android {
 
     defaultConfig {
         applicationId "alexis.boulet.channelmessaging"
-        minSdkVersion 13
-        targetSdkVersion 25
+        minSdkVersion 21
+        targetSdkVersion 21
         versionCode 1
         versionName "1.0"
     }
@@ -24,4 +24,9 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:25.1.0'
     compile 'com.google.code.gson:gson:2.2.4'
+    // Support lib for material design
+    compile 'com.android.support:design:25.1.0'
+    compile 'com.android.support:support-compat:25.1.1'
+    compile 'com.daimajia.easing:library:2.0@aar'
+    compile 'com.daimajia.androidanimations:library:2.2@aar'
 }
