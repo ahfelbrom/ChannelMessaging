@@ -2,5 +2,7 @@
     <string name="app_name">ChannelMessaging</string>
     <string name="title">connexion</string>
     <string name="this_is_an_image">this is an image</string>
-
+    <string name="login">identifiant</string>
+    <string name="mdp">Mot de passe</string>
+    <string name="above">Connectez vous pour accéder à la messagerie instantanée</string>
 </resources>

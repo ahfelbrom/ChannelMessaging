@@ -3,17 +3,6 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="listChannel"
-        android:id="@+id/title"
-        android:layout_gravity="center_horizontal"
-        android:background="#1d20b3"
-        android:textColor="#fcfcfc"
-        android:layout_weight="0.02"
-        android:textSize="24dp" />
-
     <ListView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
