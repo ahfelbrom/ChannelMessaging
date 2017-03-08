@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/fragmentB_ID"
         android:layout_gravity="right"
-        android:name="fragmentPackage.MessageFragment"
+        android:name="alexis.boulet.channelmessaging.fragmentPackage.MessageFragment"
         tools:layout="@layout/channel_fragment" />
 
 </RelativeLayout>

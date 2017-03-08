@@ -1,6 +1,5 @@
-package fragmentPackage;
+package alexis.boulet.channelmessaging.fragmentPackage;
 
-import android.app.Activity;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;

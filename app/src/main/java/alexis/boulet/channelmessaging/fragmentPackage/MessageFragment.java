@@ -1,4 +1,4 @@
-package fragmentPackage;
+package alexis.boulet.channelmessaging.fragmentPackage;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import com.google.gson.Gson;
 
@@ -30,6 +29,7 @@ public class MessageFragment extends Fragment implements OnDownloadCompleteListe
     private ListView lvMessage;
     private EditText etMessage;
     private Button btnEnvoi;
+    private int chanId = -1;
     private static final String PREFS_NAME = "MyPrefsFile";
 
     @Override
@@ -40,28 +40,32 @@ public class MessageFragment extends Fragment implements OnDownloadCompleteListe
         etMessage = (EditText) v.findViewById(R.id.etTextEnvoi);
         btnEnvoi = (Button) v.findViewById(R.id.btnEnvoi);
         btnEnvoi.setOnClickListener(this);
-        fillTextView();
-        return v;
-    }
-    public void fillTextView() {
-        final OnDownloadCompleteListener thiss = this;
-        final int chanID = this.getActivity().getIntent().getIntExtra("chanID", 0);
         SharedPreferences settings = this.getActivity().getSharedPreferences(PREFS_NAME, 0);
         final String token = settings.getString("accessToken", "rien");
-        Downloader d = new Downloader(" http://www.raphaelbischof.fr/messaging/?function=getmessages",token, chanID);
-        d.addOnDownloadCompleteListener(this);
-        d.execute();
+        final OnDownloadCompleteListener thiss = this;
         final Handler handler = new Handler();
-
         final Runnable r = new Runnable() {
             public void run() {
-                Downloader d = new Downloader(" http://www.raphaelbischof.fr/messaging/?function=getmessages",token, chanID);
-                d.addOnDownloadCompleteListener(thiss);
-                d.execute();
-                handler.postDelayed(this, 1000);
+                if(isInLayout()) {
+                    if(chanId != -1) {
+                        Downloader d = new Downloader(" http://www.raphaelbischof.fr/messaging/?function=getmessages",token, chanId);
+                        d.addOnDownloadCompleteListener(thiss);
+                        d.execute();
+                    }
+                    handler.postDelayed(this, 1000);
+                }
+
             }
         };
         handler.postDelayed(r, 1000);
+        return v;
+    }
+    public void fillTextView(int chanId) {
+        if(chanId != -1)
+        {
+            this.chanId = chanId;
+        }
+
     }
 
     @Override
@@ -74,20 +78,26 @@ public class MessageFragment extends Fragment implements OnDownloadCompleteListe
             etMessage.setText("");
         else
         {
-            for (Message message : messs.getMessagesList()) {
-                messageList.add(message);
+            if(isInLayout()) {
+                if(messs.getMessagesList() != null) {
+                    for (Message message : messs.getMessagesList()) {
+                        messageList.add(message);
+                    }
+                    if(!messageList.isEmpty()) {
+                        lvMessage.setAdapter(new MySecondArrayAdapter(this.getActivity().getApplicationContext(), messageList));
+                    }
+                }
             }
-            lvMessage.setAdapter(new MySecondArrayAdapter(this.getActivity().getApplicationContext(), messageList));
         }
     }
 
     @Override
     public void onClick(View v) {
         String message = etMessage.getText().toString();
+        //Toast.makeText(getContext(),message,Toast.LENGTH_SHORT).show();
         SharedPreferences settings = this.getActivity().getSharedPreferences(PREFS_NAME, 0);
         String token = settings.getString("accessToken", "rien");
-        int chanID = this.getActivity().getIntent().getIntExtra("chanID", 0);
-        Downloader d = new Downloader("http://www.raphaelbischof.fr/messaging/?function=sendmessage",token, chanID, message);
+        Downloader d = new Downloader("http://www.raphaelbischof.fr/messaging/?function=sendmessage",token, chanId, message);
         d.addOnDownloadCompleteListener(this);
         d.execute();
     }
