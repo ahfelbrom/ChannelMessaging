@@ -8,13 +8,11 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.google.gson.Gson;
-
 import java.util.ArrayList;
 import java.util.List;
 
-import fragmentPackage.MessageFragment;
-import fragmentPackage.ChannelListFragment;
+import alexis.boulet.channelmessaging.fragmentPackage.MessageFragment;
+import alexis.boulet.channelmessaging.fragmentPackage.ChannelListFragment;
 
 /**
  * Created by bouleta on 23/01/2017.
@@ -60,7 +58,7 @@ public class ChannelListActivity extends AppCompatActivity implements AdapterVie
             i.putExtra("chanID", chan.getChannelID());
             startActivity(i);
         } else {
-            fragB.fillTextView();
+            fragB.fillTextView(chan.getChannelID());
         }
     }
 

@@ -16,7 +16,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:id="@+id/fragmentA_ID"
-            android:name="fragmentPackage.ChannelListFragment"
+            android:name="alexis.boulet.channelmessaging.fragmentPackage.ChannelListFragment"
             tools:layout="@layout/channel_list_fragment" />
     </LinearLayout>
 </LinearLayout>

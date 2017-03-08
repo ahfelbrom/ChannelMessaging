@@ -1,15 +1,12 @@
 package alexis.boulet.channelmessaging;
 
 import android.os.AsyncTask;
-import android.os.Environment;
 
 import java.io.BufferedInputStream;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.PrintWriter;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
@@ -17,22 +14,22 @@ import java.util.ArrayList;
 /**
  * Created by bouleta on 06/02/2017.
  */
-public class downloadImageUrl extends AsyncTask<Void, Void, Void> implements OnDownloadCompleteListener {
+public class DownloadImageUrl extends AsyncTask<Void, Void, Void> implements OnDownloadCompleteListener {
 
     private String imageUrl;
-    private String filename;
+    private String filePath; //filepath
     private ArrayList<OnDownloadCompleteListener> listeners = new ArrayList<>();
 
     public void addOnDownloadCompleteListener(OnDownloadCompleteListener listener) {
         this.listeners.add(listener);
     }
 
-    public downloadImageUrl(String imageUrl, String filename) {
+    public DownloadImageUrl(String imageUrl, String filePath) {
         this.imageUrl = imageUrl;
-        this.filename = filename;
+        this.filePath = filePath;
     }
 
-    public String getFilename() { return filename; }
+    public String getFilePath() { return filePath; }
 
     public String getImageUrl() {
         return imageUrl;
@@ -67,8 +64,8 @@ public class downloadImageUrl extends AsyncTask<Void, Void, Void> implements OnD
 
     @Override
     protected Void doInBackground(Void... voids) {
-        downloadFromUrl(this.getImageUrl(), this.getFilename());
-        return null ;
+        downloadFromUrl(this.getImageUrl(), this.getFilePath());
+        return null;
     }
 
     @Override

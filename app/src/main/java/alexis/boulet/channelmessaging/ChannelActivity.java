@@ -17,18 +17,22 @@ import com.google.gson.Gson;
 
 import java.util.ArrayList;
 
+import alexis.boulet.channelmessaging.fragmentPackage.MessageFragment;
+
 public class ChannelActivity extends AppCompatActivity implements OnDownloadCompleteListener, View.OnClickListener {
 
     private ListView lvMessage;
     private EditText etMessage;
-    private Button btnEnvoi;
+    private MessageFragment fragB;
     private static final String PREFS_NAME = "MyPrefsFile";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_channel);
-
+        fragB = (MessageFragment) getSupportFragmentManager().findFragmentById(R.id.fragmentB_ID);
+        final int chanID = this.getIntent().getIntExtra("chanID", 0);
+        fragB.fillTextView(chanID);
     }
 
     private void activiteTerminee(boolean resultat, boolean etatHyperactif) {
@@ -57,6 +61,7 @@ public class ChannelActivity extends AppCompatActivity implements OnDownloadComp
             etMessage.setText("");
         else
         {
+            int compte = 0;
             for (Message message : messs.getMessagesList()) {
                 messageList.add(message);
             }
