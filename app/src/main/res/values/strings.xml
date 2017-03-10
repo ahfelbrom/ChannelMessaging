@@ -5,4 +5,6 @@
     <string name="login">identifiant</string>
     <string name="mdp">Mot de passe</string>
     <string name="above">Connectez vous pour accéder à la messagerie instantanée</string>
+    <string name="error_co">Erreur de connexion</string>
+    <string name="retry">Réessayer</string>
 </resources>
