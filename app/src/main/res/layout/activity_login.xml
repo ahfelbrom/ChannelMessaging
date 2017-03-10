@@ -1,10 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
+<RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:gradient="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:background="@color/gray">
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <com.dynamitechetan.flowinggradient.FlowingGradient
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        />
+
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -60,24 +70,40 @@
             android:hint="@string/mdp" />
 
     </android.support.design.widget.TextInputLayout>
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="valider"
+            android:background="@color/teal"
+            android:textColor="@color/white"
+            android:id="@+id/btnValider"
+            android:layout_centerHorizontal="true" />
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="valider"
-        android:background="@color/teal"
-        android:textColor="@color/white"
-        android:id="@+id/btnValider"
-        android:layout_below="@+id/etMdp"
-        android:layout_centerHorizontal="true" />
+        <com.wang.avi.AVLoadingIndicatorView
+            android:id="@+id/avi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            style="@style/AVLoadingIndicatorView"
+            android:visibility="gone"
+            app:indicatorName="PacmanIndicator"
+            app:indicatorColor="@color/white"
+            />
+    </RelativeLayout>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
+        android:textAlignment="center"
+        android:layout_gravity="center_horizontal"
         android:text="@string/above"
         android:textColor="@color/white"
         android:id="@+id/tvTrans"/>
 
 </LinearLayout>
 </ScrollView>
+    </RelativeLayout>
