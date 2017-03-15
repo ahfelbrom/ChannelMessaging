@@ -6,5 +6,5 @@ On peut se connecter depuis la page de login (première page) puis visualiser le
 
 # crédit
 
-Mr Raphael Bischof : créateur du Web Service et professeur pour ce projet
+Mr Raphael Bischof : créateur du Web Service et professeur pour ce projet<br/>
 Mr Damien Dabernat : professeur de design mobile
