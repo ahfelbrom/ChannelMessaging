@@ -3,6 +3,7 @@ package alexis.boulet.channelmessaging.fragmentPackage;
 import android.content.SharedPreferences;
 import android.media.MediaRecorder;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
@@ -117,15 +118,6 @@ public class MessageFragment extends Fragment implements OnDownloadCompleteListe
     public void confirmFireMissiles() {
         DialogFragment newFragment = new MyDialogFragment();
         newFragment.show(getActivity().getSupportFragmentManager(), "missiles");
-        MediaRecorder recorder = new MediaRecorder();
-        recorder.setAudioSource(MediaRecorder.AudioSource.MIC);
-        recorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
-        recorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
-        /*
-        context.getExternalFilesDir(Environment.DIRECTORY_PICTURES).mkdirs();
-        String filepath = context.getExternalFilesDir(Environment.DIRECTORY_PICTURES)+"/profile"+mess.getUsername()+".jpg";
-         */
-        recorder.setOutputFile("");
     }
 
 

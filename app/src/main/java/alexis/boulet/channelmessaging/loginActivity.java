@@ -37,6 +37,7 @@ public class loginActivity extends AppCompatActivity implements View.OnClickList
     private int mShortDelay;
     private TextView tvTrans;
     private AVLoadingIndicatorView chargement;
+    private Snackbar errorSnack;
     private static final String PREFS_NAME = "MyPrefsFile";
 
 
@@ -73,6 +74,8 @@ public class loginActivity extends AppCompatActivity implements View.OnClickList
                     @Override
                     public void onAnimationRepeat(Animator animation) {}
                 }).playOn(tvTrans);
+                if(chargement.getVisibility() == View.VISIBLE && !errorSnack.isShown())
+                    retry();
                 mHandlerTada.postDelayed(this, mShortDelay);
             }
         }, mShortDelay);
@@ -97,6 +100,8 @@ public class loginActivity extends AppCompatActivity implements View.OnClickList
         YoYo.with(Techniques.FadeIn)
                 .duration(700)
                 .playOn(btnValider);
+            Animation animSlideRight = AnimationUtils.loadAnimation(this,R.anim.slide_right);
+            tvTrans.startAnimation(animSlideRight);
     }
     @Override
     public void onDownloadComplete(String content, int requestCode) {
@@ -115,7 +120,7 @@ public class loginActivity extends AppCompatActivity implements View.OnClickList
             Intent loginIntent = new Intent(this, ChannelListActivity.class);
             startActivity(loginIntent, ActivityOptions.makeSceneTransitionAnimation(this, mIvLogo, "logo").toBundle());
         } else {
-            Snackbar errorSnack = Snackbar.make(findViewById(R.id.llBackground),R.string.error_co,Snackbar.LENGTH_LONG);
+            errorSnack = Snackbar.make(findViewById(R.id.llBackground),R.string.error_co,Snackbar.LENGTH_LONG);
             errorSnack.setAction(R.string.retry, new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
