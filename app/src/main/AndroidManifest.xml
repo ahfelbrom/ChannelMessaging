@@ -5,6 +5,13 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
+    <permission
+        android:name="alexis.boulet.channelmessaging.permission.C2D_MESSAGE"
+        android:protectionLevel="signature" />
+
+    <uses-permission android:name="alexis.boulet.channelmessaging.permission.C2D_MESSAGE" />
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"

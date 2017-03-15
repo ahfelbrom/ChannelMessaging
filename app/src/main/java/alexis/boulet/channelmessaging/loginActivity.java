@@ -149,6 +149,7 @@ public class loginActivity extends AppCompatActivity implements View.OnClickList
             "John snow est mort",
             "John snow est vivant",
             "Bazinga",
-            "Pourquoi la vie ?!"
+            "Pourquoi la vie ?!",
+            "42"
 };
 }
