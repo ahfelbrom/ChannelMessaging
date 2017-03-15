@@ -1,6 +1,7 @@
 package alexis.boulet.channelmessaging;
 
 import android.animation.Animator;
+import android.app.Activity;
 import android.app.ActivityOptions;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -36,6 +37,7 @@ public class loginActivity extends AppCompatActivity implements View.OnClickList
     private Handler mHandlerTada;
     private int mShortDelay;
     private TextView tvTrans;
+    private Activity thisActivity = this;
     private AVLoadingIndicatorView chargement;
     private Snackbar errorSnack;
     private static final String PREFS_NAME = "MyPrefsFile";
@@ -56,26 +58,28 @@ public class loginActivity extends AppCompatActivity implements View.OnClickList
         mShortDelay = 4000; //milliseconds
         mHandlerTada.postDelayed(new Runnable(){
             public void run(){
-                YoYo.with(Techniques.Tada)
-                        .duration(700)
-                        .playOn(mIvLogo);
-                YoYo.with(Techniques.SlideOutRight).duration(600).withListener(new Animator.AnimatorListener() {
-                    @Override
-                    public void onAnimationStart(Animator animation) {}
-                    @Override
-                    public void onAnimationEnd(Animator animation) {
-                        tvTrans.setText(explainStringArray[new Random().nextInt(explainStringArray.length)]);
-                        YoYo.with(Techniques.SlideInLeft)
-                                .duration(600)
-                                .playOn(tvTrans);
-                    }
-                    @Override
-                    public void onAnimationCancel(Animator animation) {}
-                    @Override
-                    public void onAnimationRepeat(Animator animation) {}
-                }).playOn(tvTrans);
-                if(chargement.getVisibility() == View.VISIBLE && !errorSnack.isShown())
-                    retry();
+                if(thisActivity != null) {
+                    YoYo.with(Techniques.Tada)
+                            .duration(700)
+                            .playOn(mIvLogo);
+                    YoYo.with(Techniques.SlideOutRight).duration(600).withListener(new Animator.AnimatorListener() {
+                        @Override
+                        public void onAnimationStart(Animator animation) {}
+                        @Override
+                        public void onAnimationEnd(Animator animation) {
+                            tvTrans.setText(explainStringArray[new Random().nextInt(explainStringArray.length)]);
+                            YoYo.with(Techniques.SlideInLeft)
+                                    .duration(600)
+                                    .playOn(tvTrans);
+                        }
+                        @Override
+                        public void onAnimationCancel(Animator animation) {}
+                        @Override
+                        public void onAnimationRepeat(Animator animation) {}
+                    }).playOn(tvTrans);
+                    if(chargement.getVisibility() == View.VISIBLE && !errorSnack.isShown())
+                        retry();
+                }
                 mHandlerTada.postDelayed(this, mShortDelay);
             }
         }, mShortDelay);

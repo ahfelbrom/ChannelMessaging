@@ -9,6 +9,7 @@
     <com.dynamitechetan.flowinggradient.FlowingGradient
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        gradient:transition_drawable="@drawable/trans_gradient"
         />
 
 <ScrollView

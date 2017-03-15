@@ -9,6 +9,8 @@ import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
 import android.widget.Toast;
 
+import java.io.IOException;
+
 import alexis.boulet.channelmessaging.R;
 
 /**
@@ -25,6 +27,11 @@ public class MyDialogFragment extends DialogFragment {
         getContext().getExternalFilesDir(Environment.DIRECTORY_MUSIC).mkdirs();
         String filepath = getContext().getExternalFilesDir(Environment.DIRECTORY_MUSIC)+"/message/message.3gp";
         recorder.setOutputFile(filepath);
+        try {
+            recorder.prepare();
+        } catch (IOException e) {
+            Toast.makeText(this.getContext(), e.toString(), Toast.LENGTH_SHORT).show();
+        }
         recorder.start();
         // Use the Builder class for convenient dialog construction
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
