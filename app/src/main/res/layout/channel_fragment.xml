@@ -19,8 +19,14 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentBottom="true">
 
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="son"
+            android:id="@+id/btnSon" />
+
         <EditText
-            android:layout_width="250dp"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:id="@+id/etTextEnvoi"
             android:layout_alignParentBottom="true"

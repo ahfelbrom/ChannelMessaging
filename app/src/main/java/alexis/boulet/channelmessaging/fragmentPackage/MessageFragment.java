@@ -1,8 +1,10 @@
 package alexis.boulet.channelmessaging.fragmentPackage;
 
 import android.content.SharedPreferences;
+import android.media.MediaRecorder;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 
@@ -29,6 +32,7 @@ public class MessageFragment extends Fragment implements OnDownloadCompleteListe
     private ListView lvMessage;
     private EditText etMessage;
     private Button btnEnvoi;
+    private Button btnSon;
     private int chanId = -1;
     private static final String PREFS_NAME = "MyPrefsFile";
 
@@ -39,6 +43,8 @@ public class MessageFragment extends Fragment implements OnDownloadCompleteListe
         lvMessage = (ListView) v.findViewById(R.id.lvMessageReceve);
         etMessage = (EditText) v.findViewById(R.id.etTextEnvoi);
         btnEnvoi = (Button) v.findViewById(R.id.btnEnvoi);
+        btnSon = (Button) v.findViewById(R.id.btnSon);
+        btnSon.setOnClickListener(this);
         btnEnvoi.setOnClickListener(this);
         SharedPreferences settings = this.getActivity().getSharedPreferences(PREFS_NAME, 0);
         final String token = settings.getString("accessToken", "rien");
@@ -93,12 +99,34 @@ public class MessageFragment extends Fragment implements OnDownloadCompleteListe
 
     @Override
     public void onClick(View v) {
-        String message = etMessage.getText().toString();
-        //Toast.makeText(getContext(),message,Toast.LENGTH_SHORT).show();
-        SharedPreferences settings = this.getActivity().getSharedPreferences(PREFS_NAME, 0);
-        String token = settings.getString("accessToken", "rien");
-        Downloader d = new Downloader("http://www.raphaelbischof.fr/messaging/?function=sendmessage",token, chanId, message);
-        d.addOnDownloadCompleteListener(this);
-        d.execute();
+        if(v == btnEnvoi) {
+            String message = etMessage.getText().toString();
+            SharedPreferences settings = this.getActivity().getSharedPreferences(PREFS_NAME, 0);
+            String token = settings.getString("accessToken", "rien");
+            Downloader d = new Downloader("http://www.raphaelbischof.fr/messaging/?function=sendmessage",token, chanId, message);
+            d.addOnDownloadCompleteListener(this);
+            d.execute();
+        }
+        else if(v == btnSon){
+            //Toast.makeText(this.getContext(), "ça mache", Toast.LENGTH_SHORT).show();
+            confirmFireMissiles();
+        }
+
     }
+
+    public void confirmFireMissiles() {
+        DialogFragment newFragment = new MyDialogFragment();
+        newFragment.show(getActivity().getSupportFragmentManager(), "missiles");
+        MediaRecorder recorder = new MediaRecorder();
+        recorder.setAudioSource(MediaRecorder.AudioSource.MIC);
+        recorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
+        recorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
+        /*
+        context.getExternalFilesDir(Environment.DIRECTORY_PICTURES).mkdirs();
+        String filepath = context.getExternalFilesDir(Environment.DIRECTORY_PICTURES)+"/profile"+mess.getUsername()+".jpg";
+         */
+        recorder.setOutputFile("");
+    }
+
+
 }

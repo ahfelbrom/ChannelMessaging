@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Handler;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.view.ScrollingView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -24,6 +25,8 @@ import com.google.gson.Gson;
 import com.wang.avi.AVLoadingIndicatorView;
 
 import java.util.Random;
+
+import alexis.boulet.channelmessaging.fragmentPackage.MyDialogFragment;
 
 public class loginActivity extends AppCompatActivity implements View.OnClickListener, OnDownloadCompleteListener {
     private EditText etIdentifiant;
@@ -141,6 +144,7 @@ public class loginActivity extends AppCompatActivity implements View.OnClickList
         Animation animSlideRight = AnimationUtils.loadAnimation(this,R.anim.slide_right);
         tvTrans.setText(explainStringArray[new Random().nextInt(explainStringArray.length)]);
         tvTrans.startAnimation(animSlideRight);
+        retry();
     }
 
     private static final String[] explainStringArray = {
@@ -151,5 +155,7 @@ public class loginActivity extends AppCompatActivity implements View.OnClickList
             "Bazinga",
             "Pourquoi la vie ?!",
             "42"
-};
+    };
+
+
 }

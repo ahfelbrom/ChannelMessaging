@@ -7,4 +7,7 @@
     <string name="above">Connectez vous pour accéder à la messagerie instantanée</string>
     <string name="error_co">Erreur de connexion</string>
     <string name="retry">Réessayer</string>
+    <string name="msg_dial">dites Votre message</string>
+    <string name="confirm">enregistrer le son</string>
+    <string name="cancel">annuler</string>
 </resources>
