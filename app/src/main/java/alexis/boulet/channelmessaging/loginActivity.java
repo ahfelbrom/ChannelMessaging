@@ -77,7 +77,7 @@ public class loginActivity extends AppCompatActivity implements View.OnClickList
                         @Override
                         public void onAnimationRepeat(Animator animation) {}
                     }).playOn(tvTrans);
-                    if(chargement.getVisibility() == View.VISIBLE && !errorSnack.isShown())
+                    if(errorSnack != null && chargement.getVisibility() == View.VISIBLE && !errorSnack.isShown())
                         retry();
                 }
                 mHandlerTada.postDelayed(this, mShortDelay);
@@ -122,7 +122,8 @@ public class loginActivity extends AppCompatActivity implements View.OnClickList
             /*Toast toast = Toast.makeText(this.getApplicationContext(), response.toString(), Toast.LENGTH_LONG);
             toast.show();*/
             Intent loginIntent = new Intent(this, ChannelListActivity.class);
-            startActivity(loginIntent, ActivityOptions.makeSceneTransitionAnimation(this, mIvLogo, "logo").toBundle());
+            //startActivity(loginIntent, ActivityOptions.makeSceneTransitionAnimation(this, mIvLogo, "logo").toBundle());
+            startActivityForResult(loginIntent,1);
         } else {
             errorSnack = Snackbar.make(findViewById(R.id.llBackground),R.string.error_co,Snackbar.LENGTH_LONG);
             errorSnack.setAction(R.string.retry, new View.OnClickListener() {
