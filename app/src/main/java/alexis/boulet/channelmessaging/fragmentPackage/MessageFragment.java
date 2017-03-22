@@ -34,6 +34,11 @@ public class MessageFragment extends Fragment implements OnDownloadCompleteListe
     private EditText etMessage;
     private Button btnEnvoi;
     private Button btnSon;
+
+    public int getChanId() {
+        return chanId;
+    }
+
     private int chanId = -1;
     private static final String PREFS_NAME = "MyPrefsFile";
 
