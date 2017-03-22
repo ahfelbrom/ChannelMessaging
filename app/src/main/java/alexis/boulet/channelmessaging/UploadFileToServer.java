@@ -180,9 +180,4 @@ public class UploadFileToServer extends AsyncTask<String, Integer, String> {
         }
         return sb.toString();
     }
-
-    public interface OnUploadFileListener{
-        public void onResponse(String result);
-        public void onFailed(IOException error);
-    }
 }

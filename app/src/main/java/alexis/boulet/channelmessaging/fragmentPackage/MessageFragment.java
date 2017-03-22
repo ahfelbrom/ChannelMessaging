@@ -121,7 +121,8 @@ public class MessageFragment extends Fragment implements OnDownloadCompleteListe
     }
 
     public void confirmFireMissiles() {
-        DialogFragment newFragment = new MyDialogFragment();
+        MyDialogFragment newFragment = new MyDialogFragment();
+        newFragment.setChanID(chanId);
         newFragment.show(getActivity().getSupportFragmentManager(), "missiles");
     }
 

@@ -10,20 +10,33 @@ import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
 import android.widget.Toast;
 
+import org.apache.http.NameValuePair;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import alexis.boulet.channelmessaging.OnUploadFileListener;
 import alexis.boulet.channelmessaging.R;
 import alexis.boulet.channelmessaging.UploadFileToServer;
 
 /**
+
  * Created by bouleta on 15/03/2017.
  */
-public class MyDialogFragment extends DialogFragment {
+public class MyDialogFragment extends DialogFragment implements OnUploadFileListener{
 
     private int chanID;
+    public int getChanID() {
+        return chanID;
+    }
+
+    public void setChanID(int chanID) {
+
+        this.chanID = chanID;
+    }
     private String accesstoken;
+    private OnUploadFileListener thiss = this;
     private static final String PREFS_NAME = "MyPrefsFile";
 
     @Override
@@ -36,7 +49,7 @@ public class MyDialogFragment extends DialogFragment {
         recorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
         recorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
         getContext().getExternalFilesDir(Environment.DIRECTORY_MUSIC).mkdirs();
-        String filepath = getContext().getExternalFilesDir(Environment.DIRECTORY_MUSIC)+"/message.3gp";
+        final String filepath = getContext().getExternalFilesDir(Environment.DIRECTORY_MUSIC)+"/message.3gp";
         recorder.setOutputFile(filepath);
         try {
             recorder.prepare();
@@ -49,7 +62,7 @@ public class MyDialogFragment extends DialogFragment {
             Toast.makeText(this.getContext(), e.toString(), Toast.LENGTH_SHORT).show();
         }
         String chan = chanID+"";
-        List<String> values = new ArrayList<String>();
+        final List<String> values = new ArrayList<String>();
         values.add(chan);
         values.add(accesstoken);
         // Use the Builder class for convenient dialog construction
@@ -59,7 +72,7 @@ public class MyDialogFragment extends DialogFragment {
                     public void onClick(DialogInterface dialog, int id) {
                         recorder.stop();
                         recorder.release();
-                        //UploadFileToServer ufts = new UploadFileToServer(getContext(),filepath,values,this);
+                        //UploadFileToServer ufts = new UploadFileToServer(getContext(),filepath, values,thiss);
                     }
                 })
                 .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
@@ -73,4 +86,12 @@ public class MyDialogFragment extends DialogFragment {
     }
 
 
+    @Override
+    public void onResponse(String result) {
+    }
+
+    @Override
+    public void onFailed(IOException error) {
+
+    }
 }
