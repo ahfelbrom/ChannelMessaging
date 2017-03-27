@@ -5,9 +5,14 @@
     <string name="login">identifiant</string>
     <string name="mdp">Mot de passe</string>
     <string name="above">Connectez vous pour accéder à la messagerie instantanée</string>
-    <string name="error_co">Erreur de connexion</string>
+    <string name="error_co">identifiants de connexion incorrects </string>
     <string name="retry">Réessayer</string>
     <string name="msg_dial">dites Votre message</string>
     <string name="confirm">enregistrer le son</string>
     <string name="cancel">annuler</string>
+    <string name="no_internet">veuillez vous connecter et réessayez</string>
+    <string name="not_finished">fonctionnalité non terminée</string>
+    <string name="no_channel">aucun channel connecté</string>
+    <string name="sound_failed">l\'enregistrement de son a échoué</string>
+    <string name="sound_dfailed"><![CDATA[<h1>blablabla</h1>]]></string> <!-- permet de mettre de l'xml ou html dedans  -->
 </resources>

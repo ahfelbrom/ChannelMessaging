@@ -114,8 +114,8 @@ public class MessageFragment extends Fragment implements OnDownloadCompleteListe
             d.execute();
         }
         else if(v == btnSon){
-            //Toast.makeText(this.getContext(), "ça mache", Toast.LENGTH_SHORT).show();
-            confirmFireMissiles();
+            Toast.makeText(this.getContext(), R.string.not_finished, Toast.LENGTH_SHORT).show();
+            //confirmFireMissiles();
         }
 
     }

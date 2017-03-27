@@ -54,12 +54,12 @@ public class MyDialogFragment extends DialogFragment implements OnUploadFileList
         try {
             recorder.prepare();
         } catch (IOException e) {
-            Toast.makeText(this.getContext(), e.toString(), Toast.LENGTH_LONG).show();
+            Toast.makeText(this.getContext(), R.string.sound_failed, Toast.LENGTH_LONG).show();
         }
         try {
             recorder.start();
         } catch (Exception e) {
-            Toast.makeText(this.getContext(), e.toString(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this.getContext(), R.string.sound_failed, Toast.LENGTH_SHORT).show();
         }
         String chan = chanID+"";
         final List<String> values = new ArrayList<String>();
@@ -70,15 +70,24 @@ public class MyDialogFragment extends DialogFragment implements OnUploadFileList
         builder.setMessage(R.string.msg_dial)
                 .setPositiveButton(R.string.confirm, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        recorder.stop();
-                        recorder.release();
+                        try {
+                            recorder.stop();
+                            recorder.release();
+                        } catch (Exception e) {
+                            Toast.makeText(getContext(),R.string.not_finished,Toast.LENGTH_SHORT).show();
+                        }
                         //UploadFileToServer ufts = new UploadFileToServer(getContext(),filepath, values,thiss);
                     }
                 })
                 .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        recorder.stop();
-                        recorder.reset();
+                        try {
+                            recorder.stop();
+                            recorder.reset();
+                        } catch(Exception e ) {
+                            Toast.makeText(getContext(),R.string.not_finished,Toast.LENGTH_SHORT).show();
+                        }
+
                     }
                 });
         // Create the AlertDialog object and return it

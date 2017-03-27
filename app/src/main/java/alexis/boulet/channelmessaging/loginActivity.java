@@ -112,20 +112,31 @@ public class loginActivity extends AppCompatActivity implements View.OnClickList
         //désérialisation de json
         Gson gson = new Gson();
         Response response = gson.fromJson(content, Response.class);
-        if(response.getAccessToken() != null) {
-            //stockage dans les SharedPrefs
-            SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
-            SharedPreferences.Editor editor = settings.edit();
-            editor.putString("accessToken", response.getAccessToken());
-            // Commit the edits!
-            editor.commit();
+        if(response != null) {
+            if(response.getAccessToken() != null) {
+                //stockage dans les SharedPrefs
+                SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
+                SharedPreferences.Editor editor = settings.edit();
+                editor.putString("accessToken", response.getAccessToken());
+                // Commit the edits!
+                editor.commit();
             /*Toast toast = Toast.makeText(this.getApplicationContext(), response.toString(), Toast.LENGTH_LONG);
             toast.show();*/
-            Intent loginIntent = new Intent(this, ChannelListActivity.class);
-            //startActivity(loginIntent, ActivityOptions.makeSceneTransitionAnimation(this, mIvLogo, "logo").toBundle());
-            startActivityForResult(loginIntent,1);
+                Intent loginIntent = new Intent(this, ChannelListActivity.class);
+                //startActivity(loginIntent, ActivityOptions.makeSceneTransitionAnimation(this, mIvLogo, "logo").toBundle());
+                startActivityForResult(loginIntent,1);
+            } else {
+                errorSnack = Snackbar.make(findViewById(R.id.llBackground),R.string.error_co,Snackbar.LENGTH_LONG);
+                errorSnack.setAction(R.string.retry, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        retry();
+                    }
+                });
+                errorSnack.show();
+            }
         } else {
-            errorSnack = Snackbar.make(findViewById(R.id.llBackground),R.string.error_co,Snackbar.LENGTH_LONG);
+            errorSnack = Snackbar.make(findViewById(R.id.llBackground),R.string.no_internet,Snackbar.LENGTH_LONG);
             errorSnack.setAction(R.string.retry, new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -134,6 +145,7 @@ public class loginActivity extends AppCompatActivity implements View.OnClickList
             });
             errorSnack.show();
         }
+
 
     }
 
